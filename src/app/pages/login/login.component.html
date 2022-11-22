@@ -1,24 +1,27 @@
-<div class="div-login">
-  <h1>LogIn</h1>
-  Aqui va formulario para iniciar sesion
-    <div>
-      <form [formGroup]="logInForm" (submit)="logUsuario()">
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password">
-        </mat-form-field>
-        <div class="botones">
-          <button mat-flat-button color="primary" [disabled]="logInForm.invalid">Login</button>
-          <button type="button" mat-flat-button color="warn">Cancel</button>
-        </div>
-      </form>
-    </div>
-  <asl-google-signin-button type='standard' size='medium'></asl-google-signin-button>
-  Create a new account <a href="/signup">Register</a>
+<div class="section">
+  <div class="banner_image">
+    <img src="../assets/login10.png" alt="">
+  </div>
+  <div class="div-login">
+    <h1>Log In</h1>
+      <p>Welcome back! Log In now to start trading</p>
+      <div>
+        <form [formGroup]="logInForm" (submit)="logUsuario()">
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+          </mat-form-field>
+          <div class="botones">
+            <button  class="login" [disabled]="logInForm.invalid">Login</button>
+            <button type="button" class="cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    <asl-google-signin-button type='standard' size='medium' style="margin-bottom:15px"></asl-google-signin-button>
+    <div>Create a new account → <a href="/signup">Sign Up</a></div> 
+  </div>
 </div>
-
-

@@ -1,73 +1,45 @@
-#controls {
-    width: 600px;
+html {
+    scroll-behavior: smooth;
+  }
 
-    mat-form-field {
-        width: 100%;
-    }
+h1{
+    font-size: 64px;
+    font-family:  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
 
-    input[type="file"] {
-        display: none;
-    }
-
-    input[type="color"] {
-        width: 80px;
-    }
-
-    .panel {
-
-        &::after {
-            display: table;
-            content: "";
-            clear: both;
-        }
-
-        > div {
-            width: 60%;
-            float: left;
-
-            &:last-child {
-                width: 40%;
-                text-align: right;
-                // padding-top: 10px;
-
-                > div {
-                    margin-bottom: 12px;
-                }
-            }
-        }
+.banner_content{
+    text-align: center;
+    min-height: auto;
+    p{
+        padding: 0 65px;
+        font-size: 20px;
+        letter-spacing: -0.2px;
+        margin-bottom: 40px;
     }
 }
 
-#meme {
-    width: 600px;
-    height: 450px;
-    background-color: black;
-    background-position: center;
-    background-repeat: none;
-    background-size: cover;
-    position: relative;
-
-    > div {
-        color: white;
-        text-align: center;
-        border: none;
-        position: absolute;
-        left: 5px;
-        right: 5px;
-
-        &#upper {
-            top: 10px;
-        }
-
-        &#lower {
-            bottom: 10px;
-        }
-    }
-
+.banner_image{
+    text-align: center;
+    margin-top: 50px;
 }
 
-.cta {
-    width: 600px;
-    margin-top: 12px;
-    text-align: right;
+.banner{
+    padding: 77px;
+}
+
+.btn-action{
+    font-family:  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: goldenrod;
+    color: white;
+    border-radius: 90px;
+    padding: 15px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+img{
+    width: auto;
+    height: 60vh;
 }
