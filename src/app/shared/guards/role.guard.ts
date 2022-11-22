@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { RoleService } from '../services/role.service';
 
 @Injectable({
@@ -14,14 +14,38 @@ export class RoleGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const requiredRole = route.data['roles'];
-    const userRole = this.roleService.getRole();
-    const found = requiredRole.some((r: any) => userRole.indexOf(r) >= 0)
-      if(found) {
-        return true;
-      } else {
-        this.router.navigate(['/forbidden']);
-        return false;
-      }
+    const token = localStorage.getItem("token")
+    // return false
+    const result = new Subject<boolean>();
+    if (token) {
+      this.roleService.getRoles(token).subscribe((user: any) => {
+        if (user.roles) {
+          const found = requiredRole.some((r: any) => user.roles.indexOf(r) >= 0)
+          if (found) {
+            result.next(true);
+          } else {
+            this.router.navigate(['/forbidden']);
+            result.next(false);
+          }
+        } else {
+          this.router.navigate(['/forbidden']);
+          result.next(false);
+        }
+
+        result.complete();
+      },
+        error => {
+          this.router.navigate(['/forbidden']);
+          result.next(false);
+          result.complete();
+        });
+    } else {
+      this.router.navigate(['/forbidden']);
+      result.next(false);
+      result.complete();
+    }
+
+    return result.asObservable();
   }
 
 }

@@ -11,14 +11,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class HeaderComponent implements OnInit {
   socialUser!: SocialUser;
 
-  constructor(socialAuthService: SocialAuthService, private router: Router, public authService: AuthService) {
+  constructor(private socialAuthService: SocialAuthService, private router: Router, public authService: AuthService) {
 
     socialAuthService.authState.subscribe(user => {
       if (user) {
-        // this.authService.postUser(user.email, null, user.name, user.photoUrl, "google").subscribe(
-        //   (res) => {console.log(res)},
-        //   (err) => console.log(err)
-        // )
         authService.setUser(user)
         authService.setIsLoggedIn(true)
         localStorage.setItem("method", "google")
@@ -54,6 +50,7 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.authService.setUser({})
     localStorage.setItem("token", "")
+    this.socialAuthService.signOut();
     this.authService.setIsLoggedIn(false)
     this.authService.signOut()
   }
