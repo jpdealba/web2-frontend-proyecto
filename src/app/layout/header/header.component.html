@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  Tamacoin
+  <div *ngIf="!this.authService.isLoggedIn()">
+    <a href="/login">LogIn</a>
+  </div>
+
+
+  <div *ngIf="this.authService.isLoggedIn()">
+    <a href="/meme">Home</a>
+    <a href="/profile">Profile</a>
+    <button (click)="logOut()">Log Out</button>
+  </div>
+
+</mat-toolbar>
+
