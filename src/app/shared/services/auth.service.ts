@@ -14,13 +14,13 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router, private authService: SocialAuthService) { }
 
   getTokenGoogle(token: string) {
-    const url = `http://192.168.100.59:4004/google/${token}`
+    const url = `https://web2-api-proyecto.vercel.app/google/${token}`
     return this.http.get(url)
   }
 
   getToken(token: string) {
 
-    const url = `http://192.168.100.59:4004/api/login/${token}`
+    const url = `https://web2-api-proyecto.vercel.app/api/login/${token}`
     return this.http.get(url)
   }
 
@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   postUser(email: string, password: any, name: string, photo_url = "", method = "email") {
-    const url = `http://192.168.100.59:4004/api/users`
+    const url = `https://web2-api-proyecto.vercel.app/api/users`
     return this.http.post(url, {
       name: name,
       username: name,

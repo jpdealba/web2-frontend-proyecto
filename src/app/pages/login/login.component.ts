@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
 
   getUser(email: string, password: string) {
-    const url = `http://192.168.100.59:4004/api/login`
+    const url = `https://web2-api-proyecto.vercel.app/api/login`
     return this.http.post(url, {
       email: email,
       password: password
