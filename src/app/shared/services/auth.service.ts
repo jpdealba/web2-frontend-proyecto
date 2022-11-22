@@ -1,4 +1,4 @@
-import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ export class AuthService {
   user!: any;
   loggedIn: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router, private authService: SocialAuthService) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getTokenGoogle(token: string) {
     const url = `https://web2-api-proyecto.vercel.app/google/${token}`
@@ -27,7 +27,6 @@ export class AuthService {
   signOut(): void {
     localStorage.setItem("token", "")
     localStorage.setItem("method", "")
-    this.authService.signOut();
     this.setIsLoggedIn(false)
     this.router.navigate(["/login"])
   }

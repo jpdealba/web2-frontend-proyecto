@@ -13,12 +13,12 @@ import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MaterialModule } from './modules/material/material.module';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
+import { GeneratorPrivateComponent } from './pages/generator-private/generator-private.component';
 import { GeneratorComponent } from './pages/generator/generator.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { NlToBrPipe } from './shared/pipes/nl-to-br.pipe';
-import { GeneratorPrivateComponent } from './pages/generator-private/generator-private.component';
 
 
 @NgModule({
@@ -53,7 +53,8 @@ import { GeneratorPrivateComponent } from './pages/generator-private/generator-p
         {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
-            environment.googleId!
+            environment.googleId!,
+            {oneTapEnabled: false}
           )
         }
       ],
