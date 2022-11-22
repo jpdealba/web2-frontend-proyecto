@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="header__left">
     <div class="logo">
-      <a href="index.html">
+      <a routerLink="index.html">
         <img id="site-logo" src="favicon.ico" alt="" width="32" height="32">
         Tamacoin
       </a>
@@ -11,13 +11,13 @@
   <div class="divide"><span></span></div>
   <div class="head_right">
     <div *ngIf="!this.authService.isLoggedIn()">
-      <a href="/login">LogIn</a>
+      <a routerLink="/login">LogIn</a>
     </div>
 
 
     <div *ngIf="this.authService.isLoggedIn()">
-      <a href="/meme">Home</a>
-      <a href="/profile">Profile</a>
+      <a routerLink="/meme">Home</a>
+      <a routerLink="/profile">Profile</a>
       <button (click)="logOut()">Log Out</button>
     </div>
   </div>
