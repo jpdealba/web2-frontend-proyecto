@@ -15,7 +15,6 @@ export class RoleGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const requiredRole = route.data['roles'];
     const token = localStorage.getItem("token")
-    // return false
     const result = new Subject<boolean>();
     if (token) {
       this.roleService.getRoles(token).subscribe((user: any) => {
