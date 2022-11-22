@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
   crearUsuario() {
     const datos = this.signupForm.getRawValue();
     if (this.signupForm.valid) {
-      this.authService.postUser(datos.email, datos.password, datos.name, "https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png").subscribe(
+      this.authService.postUser(datos.email, datos.password, datos.name, "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png").subscribe(
         (res) => this.router.navigate(["login"]),
         (err) => console.log(err)
       )
