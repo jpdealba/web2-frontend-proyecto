@@ -12,6 +12,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MaterialModule } from './modules/material/material.module';
+import { CoinComponent } from './pages/coin/coin.component';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { GeneratorPrivateComponent } from './pages/generator-private/generator-private.component';
 import { GeneratorComponent } from './pages/generator/generator.component';
@@ -33,7 +34,8 @@ import { NlToBrPipe } from './shared/pipes/nl-to-br.pipe';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    GeneratorPrivateComponent
+    GeneratorPrivateComponent,
+    CoinComponent,
   ],
   imports: [
     BrowserModule,

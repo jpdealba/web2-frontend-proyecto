@@ -1,1 +1,28 @@
-<p *ngIf="user">Logged in as: {{user.username}}</p>
+<div class="section">
+  <div class="left_section">
+    <a routerLink="index.html">
+      <img *ngIf="user" src={{user.photo_url}} alt="">
+    </a>
+
+    <p *ngIf="user" style="font-weight:bold ;"> {{user.username}}</p>
+    <p *ngIf="user">{{user.email}}</p>
+  </div>
+    <div class="">
+      <p style="font-weight:bold ;">Balance</p>
+      <li *ngFor="let bal of balance; index as i">
+        {{bal.symbol}} - {{bal.qty}}
+      </li>
+    </div>
+</div>
+<div class="">
+
+  <p style="font-weight:bold ;">Transactions</p>
+  <ul *ngFor="let transaction of transactions; index as i" >
+    <div>Account: {{transaction.user_id}}</div>
+    <div>From: {{transaction.symbol_from}}</div>
+    <div>Qty: {{transaction.qty_from}}</div>
+    <div>To: {{transaction.symbol_to}}</div>
+    <div>Qty: {{transaction.qty_to}}</div>
+    <div>Timestamp: {{transaction.timestamp}}</div>
+  </ul>
+</div>

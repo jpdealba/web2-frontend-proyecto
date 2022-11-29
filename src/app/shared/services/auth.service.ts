@@ -26,6 +26,7 @@ export class AuthService {
             this.signOut()
           } else {
             this.setUser(data)
+            localStorage.setItem("user_id", data._id)
             this.setIsLoggedIn(true)
             this.onUser.emit(data);
           }
@@ -52,6 +53,7 @@ export class AuthService {
   signOut(): void {
     localStorage.setItem("token", "")
     localStorage.setItem("method", "")
+    localStorage.setItem("user_id", "")
     this.setIsLoggedIn(false)
     this.router.navigate(["/login"])
   }
@@ -66,6 +68,7 @@ export class AuthService {
 
   setUser(user: any) {
     this.user = { ...user }
+    localStorage.setItem("user_id", user._id)
 
   }
 

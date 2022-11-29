@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CoinComponent } from './pages/coin/coin.component';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { GeneratorPrivateComponent } from './pages/generator-private/generator-private.component';
 import { GeneratorComponent } from './pages/generator/generator.component';
@@ -11,10 +12,11 @@ import { RoleGuard } from './shared/guards/role.guard';
 import { UnauthGuard } from './shared/guards/unauth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'meme', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [UnauthGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [UnauthGuard] },
-  { path: 'meme', component: GeneratorComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: GeneratorComponent },
+  { path: 'coin/:symbol', component: CoinComponent },
   { path: 'private', component: GeneratorPrivateComponent, canActivate: [RoleGuard], data: {roles: ["admin"]} },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'forbidden', component: ForbiddenComponent, canActivate: [AuthGuard] }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  googleId: "772161694402-eqfpaiarkiiupl0no2rilu21m7vfco0k.apps.googleusercontent.com"
+  googleId: "772161694402-eqfpaiarkiiupl0no2rilu21m7vfco0k.apps.googleusercontent.com",
+  apiUrl: "http://localhost:3000"
 
 };
 

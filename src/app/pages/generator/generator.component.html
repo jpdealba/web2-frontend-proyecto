@@ -1,5 +1,5 @@
 
-<div class="banner">
+<!-- <div class="banner">
   <div class="banner_content">
     <h1>Learn, buy & sell crypto easily</h1>
     <p>Tamacoin is the easiest place to buy and sell cryptocurrency. Sign up and get started today.</p>
@@ -8,4 +8,9 @@
   <div class="banner_image">
     <img src="../assets/Tamacoin2.png" alt="">
   </div>
-</div>/
+</div>/ -->
+<div>
+  <li *ngFor="let coin of coins; index as i">
+    <a (click)="selectCoin(coin.symbol)" [routerLink]="'/coin/'+coin.symbol">{{coin.name}}</a>
+  </li>
+</div>

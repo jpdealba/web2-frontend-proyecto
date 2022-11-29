@@ -9,10 +9,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  socialUser!: SocialUser;
-
+  user: any = this.authService.getUser();
+  user_id: any = localStorage.getItem("user_id")
   constructor(private socialAuthService: SocialAuthService, private router: Router, public authService: AuthService) {
-
     socialAuthService.authState.subscribe(user => {
       if (user) {
         authService.setUser(user)
@@ -20,26 +19,29 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem("method", "google")
         console.log("Usuario logueado", user);
         localStorage.setItem("token", user.idToken)
-        var route = router.url == "/login" ? "/meme" : router.url
+        var route = router.url == "/login" ? "/home" : router.url
         router.navigate([`${route}`])
-      } else {
-
       }
     })
   }
+
   ngOnInit(): void {
     const token = localStorage.getItem("token")
     if (localStorage.getItem("token")) {
       if (localStorage.getItem("method") == "email") {
         this.authService.getToken(token!).subscribe((data: any) => {
           if (data.status == "Token Not Valid") {
+            localStorage.setItem("user_id", "")
             this.authService.signOut()
           } else {
+            localStorage.setItem("user_id", data._id)
             this.authService.setUser(data)
+            this.user = data
             this.authService.setIsLoggedIn(true)
           }
         },
           (error: any) => {
+            localStorage.setItem("user_id", "")
             this.authService.signOut()
           }
         )
@@ -56,7 +58,7 @@ export class HeaderComponent implements OnInit {
   }
 
   navigate() {
-    this.router.navigate(["meme"])
+    this.router.navigate(["home"])
   }
 
 }
