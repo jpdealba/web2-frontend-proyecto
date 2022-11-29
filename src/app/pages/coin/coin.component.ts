@@ -55,7 +55,6 @@ export class CoinComponent implements OnInit {
     this.coinsService.getCoin(this.symbol).then(res => this.coin = res.data)
     this.coinsService.getCoins().then(res => this.coins = res.data)
     this.transactionService.getTransactions(this.symbol).then(res => {
-      console.log(res.data)
       this.transactions = res.data
     }).catch(err => console.log(err))
     this.authService.onUser.subscribe(
@@ -78,15 +77,8 @@ export class CoinComponent implements OnInit {
         symbol_to: datos.to.symbol,
         qty: datos.qty
       }).then(res => {
-        console.log(res)
         location.reload();
       }).catch(err => alert(err))
-
-      // // this.authService.postUser(datos.email, datos.password, datos.name, "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png").subscribe(
-      // //   (res) => this.router.navigate(["login"]),
-      // //   (err) => console.log(err)
-      // // )
-      // await axios.post()
     }
   }
 

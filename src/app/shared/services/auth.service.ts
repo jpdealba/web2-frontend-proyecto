@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
   private user: any;
   private loggedIn: boolean = false;
   onUser: EventEmitter<void> = new EventEmitter();
-
+  url = `${environment.apiUrl}`;
   constructor(private http: HttpClient, private router: Router) {
     this.loaduser()
   }
@@ -40,14 +41,12 @@ export class AuthService {
   }
 
   getTokenGoogle(token: string) {
-    const url = `https://web2-api-proyecto.vercel.app/google/${token}`
-    return this.http.get(url)
+    return this.http.get(`${this.url}/google/${token}`)
   }
 
   getToken(token: string) {
 
-    const url = `https://web2-api-proyecto.vercel.app/api/login/${token}`
-    return this.http.get(url)
+    return this.http.get(`${this.url}/api/login/${token}`)
   }
 
   signOut(): void {
@@ -77,8 +76,7 @@ export class AuthService {
   }
 
   postUser(email: string, password: any, name: string, photo_url = "", method = "email") {
-    const url = `https://web2-api-proyecto.vercel.app/api/users`
-    return this.http.post(url, {
+    return this.http.post(`${this.url}/api/users`, {
       name: name,
       username: name,
       photo_url: photo_url,

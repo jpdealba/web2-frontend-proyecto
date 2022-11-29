@@ -9,8 +9,12 @@
   <p>Market Cap: ${{coin.market_cap}}</p>
   <p>Circulating Supply: {{coin.circulating_supply}}</p>
 </div>
-
-<div *ngIf="user">
+<h2><a routerLink="/login" style="display: inline;">
+  LogIn
+</a>
+ to start trading
+</h2>
+<div *ngIf="user && user._id">
   <form [formGroup]="tradeForm" (submit)="trade()">
     <mat-form-field>
       <mat-label>How Much</mat-label>
