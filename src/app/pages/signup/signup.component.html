@@ -1,32 +1,43 @@
-<div class="form-container">
-
-    Es valido? {{signupForm.valid}}
-
-    <form [formGroup]="signupForm" (submit)="crearUsuario()">
-        <mat-form-field>
+<div class="section">
+  <div class="banner_image">
+    <img src="../assets/Login1.png" alt="">
+  </div>
+  <div class="div-login">
+    <h1>Sign Up</h1>
+    <p>Welcome! Sign Up now to start trading</p>
+    <div style="width: 100%;">
+      <form [formGroup]="signupForm" (submit)="crearUsuario()">
+        <div class="formLayout">
+          <mat-form-field>
             <mat-label>Nombre</mat-label>
             <input matInput type="text" formControlName="name">
             <mat-error>Este campo es requerido</mat-error>
-        </mat-form-field>
-        <mat-form-field>
+          </mat-form-field>
+
+          <mat-form-field>
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email">
-        </mat-form-field>
-        <mat-form-field>
+          </mat-form-field>
+
+          <mat-form-field>
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password">
-        </mat-form-field>
-        <mat-form-field>
+          </mat-form-field>
+
+          <mat-form-field>
             <mat-label>Confirmar Password</mat-label>
             <input matInput type="password" formControlName="confirm">
-        </mat-form-field>
-
-        <mat-checkbox formControlName="terms">Acepto los terminos y condiciones</mat-checkbox>
-
-        <div>
-            <button mat-flat-button color="primary" [disabled]="signupForm.invalid">Crear</button>
-            <button type="button" mat-flat-button color="warn">Cancelar</button>
+          </mat-form-field>
+                  <mat-checkbox formControlName="terms">Acepto los terminos y condiciones</mat-checkbox>
+          <asl-google-signin-button type='standard' size='medium' style="margin-bottom:15px"></asl-google-signin-button>
         </div>
-    </form>
-</div>
+        <div class="botones">
+          <button class="login" #trigger id="trigger" [disabled]="signupForm.invalid">Register</button>
+          <button type="button" class="cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
 
+    <div>Already Signed Up? → <a routerLink="/login">Log In</a></div>
+  </div>
+</div>
