@@ -1,31 +1,55 @@
 <div class="section">
   <div class="left_section">
-    <a routerLink="index.html">
+    <a>
       <img *ngIf="user" src={{user.photo_url}} alt="">
+      <app-file-upload ></app-file-upload>
     </a>
-    <app-file-upload ></app-file-upload>
+    
     <p *ngIf="user" style="font-weight:bold ;"> {{user.username}}</p>
-    <p *ngIf="user">{{user.email}}</p>
+    <p *ngIf="user" style="font-size:18px ;">{{user.email}}</p>
+    <p *ngIf="user" style="font-size:15px ;">Wallet:</p>
+    <p *ngIf="user" style="font-size:15px ;">{{user._id}}</p>
   </div>
-    <div class="">
-      <p style="font-weight:bold ;">Balance</p>
-      <li *ngFor="let bal of balance; index as i">
-        {{bal.symbol}} - {{bal.qty}}
-      </li>
+    <div class="balanz">
+      <h1 style="color: goldenrod;">Balance</h1>
+      <hr>
+      <ol>
+        <li *ngFor="let bal of balance; index as i" >
+          {{bal.qty | number:'0.1-10'}} {{bal.symbol | uppercase}}
+        </li>
+      </ol>
     </div>
 </div>
-<div class="">
+<div class="desktop" style="margin:auto; width: 80%;">
+  <h1 style="color: goldenrod;">Transactions</h1>
+  <ul class="titles">
+    <div class="title" style="width: 10%; text-align: 'left'"> From </div>
+    <div class="title" style="width: 30%; text-align: 'left'"> Quantity </div>
+    <div class="title" style="width: 10%; text-align: 'left'"> To </div>
+    <div class="title" style="width: 30%; text-align: 'left'"> Quantity </div>
+    <div class="title" style="width: 15%; text-align: 'right'" > Date </div>
+  </ul>
+  <ul *ngFor="let transaction of transactions; index as i" >
+    <div style="width: 10%; text-align: 'left';font-weight: bold;" > <a [routerLink]="'/coin/'+transaction.symbol_from">{{ (transaction.symbol_from.length <4)? (transaction.symbol_from | uppercase)+'':(transaction.symbol_from | uppercase) }} </a></div>
+    <div style="width: 30%; text-align: 'left'" > {{transaction.qty_from}}</div>
+    <div style="width: 10%; text-align: 'left';font-weight: bold; " > <a [routerLink]="'/coin/'+transaction.symbol_to"> {{ (transaction.symbol_to.length<4)? (transaction.symbol_to | uppercase)+'':(transaction.symbol_to | uppercase) }} </a></div>
+    <div style="width: 30%; text-align: 'left'" > {{transaction.qty_to | number:'0.1-8'}} </div>
+    <div style="width: 15%; text-align: 'right'" >{{transaction.timestamp| date : 'dd.MM.yyyy → HH:mm'}}</div>
+  </ul>
+</div>
 
-  <p style="font-weight:bold ;">Transactions</p>
-  
-    <ul *ngFor="let transaction of transactions; index as i" >
-        <div> Wallet: {{transaction.user_id}} </div>
-        <div> <a [routerLink]="'/coin/'+transaction.symbol_from"> From: {{transaction.symbol_from}} </a></div>
-        <div>Qty: {{transaction.qty_from}}</div>
-        <div> <a [routerLink]="'/coin/'+transaction.symbol_to"> To: {{transaction.symbol_to}} </a></div>
-        <div>Qty: {{transaction.qty_to}}</div>
-      <div>Date: {{transaction.timestamp| date : 'dd.MM.yyyy → HH:mm'}}</div>
-      
-    </ul>
-  
+<div class="mobile" style="margin:auto; width: 100%;">
+  <h1 style="color: goldenrod;">Transactions</h1>
+  <ul class="titles">
+    <div class="title" style="width: 40%; text-align: 'left'"> From </div>
+    <div class="title" style="width: 30%; text-align: 'left'"> To </div>
+    <div class="title" style="width: 20%; text-align: 'right'" > Date </div>
+  </ul>
+  <ul *ngFor="let transaction of transactions; index as i" >
+    <div style="width: 10%; text-align: 'left'" > <a [routerLink]="'/coin/'+transaction.symbol_from">{{ (transaction.symbol_from.length <4)? (transaction.symbol_from | uppercase)+'':(transaction.symbol_from | uppercase) }} </a> {{transaction.qty_from}}</div>
+    <div style="width: 30%; text-align: 'left'" > </div>
+    <div style="width: 10%; text-align: 'left'" > <a [routerLink]="'/coin/'+transaction.symbol_to"> {{ (transaction.symbol_to.length<4)? (transaction.symbol_to | uppercase)+'':(transaction.symbol_to | uppercase) }} </a> {{transaction.qty_to | number:'0.1-5'}}</div>
+    <div style="width: 25%; text-align: 'left'" >  </div>
+    <div style="width: 10%; text-align: 'left'" >{{transaction.timestamp| date : 'dd.MM.yyyy'}}</div>
+  </ul>
 </div>

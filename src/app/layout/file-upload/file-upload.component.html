@@ -1,17 +1,22 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="text-center">
-  <input class="form-control" type="file" accept="image/png, image/jpeg, image/jpg" (change)="onChange($event)">
-  <button (click)="onUpload()" class="btn btn-success">
-    Upload
+  <label for="files" class="btn"><span class="material-symbols-outlined">add_a_photo</span></label>
+  <input class="form-control btnform" id="files" type="file" accept="image/png, image/jpeg, image/jpg" (change)="onChange($event)" style="visibility:hidden;">
+  <button (click)="onUpload()" class="btn btn-success btnsend" *ngIf="file">
+    
+    <span class="material-symbols-outlined">
+       send
+      </span>
   </button>
 </div>
 
 <!-- Shareable short link of  uploaded file -->
 <div class="container text-center jumbotron" *ngIf="shortLink">
-  <h2> Visit Here</h2>
+  <h2></h2>
   <a href="{{shortLink}}">{{shortLink}}</a>
 </div>
 
 <!--Flag variable is used here-->
 <div class="container" *ngIf="loading">
-  <h3>Loading ...</h3>
+  <h3></h3>
 </div>

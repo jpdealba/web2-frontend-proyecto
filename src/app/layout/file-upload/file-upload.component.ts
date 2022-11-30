@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
-import { UsersService } from 'src/app/shared/services/users.service';
-
 @Component({
     selector: 'app-file-upload',
     templateUrl: './file-upload.component.html',
@@ -24,6 +21,7 @@ export class FileUploadComponent implements OnInit {
     // On file Select
     onChange(event: any) {
         this.file = event.target.files[0];
+        this.onUpload()
     }
 
     // OnClick of button Upload
