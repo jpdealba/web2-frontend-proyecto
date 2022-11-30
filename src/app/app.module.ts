@@ -47,7 +47,7 @@ import { FileUploadComponent } from './layout/file-upload/file-upload.component'
     FormsModule,
     ReactiveFormsModule,
     SocialLoginModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',
