@@ -14,13 +14,16 @@ export class HeaderComponent implements OnInit {
   constructor(private socialAuthService: SocialAuthService, private router: Router, public authService: AuthService) {
     socialAuthService.authState.subscribe(user => {
       if (user) {
-        authService.setUser(user)
-        authService.setIsLoggedIn(true)
-        localStorage.setItem("method", "google")
-        console.log("Usuario logueado", user);
-        localStorage.setItem("token", user.idToken)
-        var route = router.url == "/login" ? "/home" : router.url
-        router.navigate([`${route}`])
+        authService.postUserGoogle(user).subscribe((data: any) => {
+          authService.setUser({...data, token: user.idToken})
+          authService.setIsLoggedIn(true)
+          localStorage.setItem("method", "google")
+          console.log("Usuario logueado", data);
+          localStorage.setItem("token", user.idToken)
+          var route = router.url == "/login" ? "/home" : router.url
+          router.navigate([`${route}`])
+        }, (err: any) => console.log(err))
+
       }
     })
   }

@@ -66,7 +66,13 @@ export class AuthService {
   }
 
   setUser(user: any) {
-    this.user = { ...user, photo_url: user.photo_url.includes("https://") ? user.photo_url : this.url + "/api/users/image/" + user._id }
+    var photo = ""
+    if (user.photo_url) {
+      photo = user.photo_url.includes("https://") ? user.photo_url : this.url + "/api/users/image/" + user._id
+    } else {
+      photo = user.photo_url
+    }
+    this.user = { ...user, photo_url:  photo}
     localStorage.setItem("user_id", user._id)
 
   }
@@ -84,6 +90,10 @@ export class AuthService {
       password: password,
       method: method
     })
+  }
+
+  postUserGoogle(data: any) {
+    return this.http.post(`${this.url}/api/users`, data)
   }
 
 }
