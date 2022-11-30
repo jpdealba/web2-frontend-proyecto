@@ -3,7 +3,7 @@
     <a routerLink="index.html">
       <img *ngIf="user" src={{user.photo_url}} alt="">
     </a>
-
+    <app-file-upload ></app-file-upload>
     <p *ngIf="user" style="font-weight:bold ;"> {{user.username}}</p>
     <p *ngIf="user">{{user.email}}</p>
   </div>
