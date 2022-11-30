@@ -1,16 +1,20 @@
 .section{
   display: flex;
   width: 100%;
+  min-height: 80%;
   position: fixed;
-  overflow-y:scroll
+  overflow-y:scroll;
 }
 .banner_image{
   width: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
   height:75vh;
 }
 img{
-  width: 95%;
-  
+  width: 80%;
+
 }
 
 .div-login {
