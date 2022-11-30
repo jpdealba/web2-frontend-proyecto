@@ -6,6 +6,7 @@ import axios from 'axios';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BalanceService } from 'src/app/shared/services/balance.service';
 import { CoinsService } from 'src/app/shared/services/coins.service';
+import { SocketService } from 'src/app/shared/services/socket.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 @Component({
@@ -28,18 +29,15 @@ export class CoinComponent implements OnInit {
   qtyTo: number = 0;
   transactions: Array<any> = []
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private transactionService: TransactionsService,
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute,
+    private transactionService: TransactionsService, private socketService: SocketService,
     private coinsService: CoinsService, private balanceService: BalanceService, private formBuilder: UntypedFormBuilder) {
     this.tradeForm = this.formBuilder.group({
       user: [{},[Validators.required]],
       to: [{},[Validators.required]],
       qty: [0.00, [Validators.required, Validators.min(0.001)]],
-      // from: ['', [Validators.required, Validators.minLength(1)]],
       qtyTo: [{ value: this.qtyTo, disabled: true }, [Validators.required, Validators.min(0.0001)]],
-      // From: [this.balance ? this.balance[0] : "", ],
-      // qty: [0.00, ],
       from: ['', [Validators.required, Validators.minLength(1)]],
-      // qtyTo: [0],
     }
     )
   }
@@ -52,7 +50,11 @@ export class CoinComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.symbol = params["symbol"]
     })
-    this.coinsService.getCoin(this.symbol).then(res => this.coin = res.data)
+    this.coinsService.getCoin(this.symbol).then(res => {
+      this.coin = res.data
+      this.socketService.connect()
+      this.socketService.setRoom(res.data.symbol)
+    })
     this.coinsService.getCoins().then(res => this.coins = res.data)
     this.transactionService.getTransactions(this.symbol).then(res => {
       this.transactions = res.data
@@ -77,7 +79,14 @@ export class CoinComponent implements OnInit {
         symbol_to: datos.to.symbol,
         qty: datos.qty
       }).then(res => {
-        location.reload();
+        // this.socketService.connect()
+        // this.socketService.sendTransaction({
+        //   user_id: datos.user._id,
+        //   symbol_from: this.balance[this.selected].symbol,
+        //   symbol_to: datos.to.symbol,
+        //   qty: datos.qty
+        // })
+        // location.reload();
       }).catch(err => alert(err))
     }
   }

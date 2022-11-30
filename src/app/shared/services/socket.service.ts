@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as socketIo from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
-  url = "http://localhost:3000";
+  url = environment.apiUrl;
   socket: any = null;
   room: string = '';
 
@@ -24,12 +25,15 @@ export class SocketService {
   }
 
   subscribeToChanges(): void {
-    this.socket.on("transaction-case", (user_id: string, amount: number, coin_from: string, coin_to: string) => {
-      console.log(user_id)
+    this.socket.on("transaction-case", (data: any) => {
+      console.log("transaction-case")
+      console.log(data)
     });
   }
 
-  sendTransaction(id: any) {
-    this.socket.emit('transaction-case', this.room, id);
+  sendTransaction(data: any) {
+    console.log(this.socket)
+    console.log(this.room)
+    this.socket.emit('transaction-case', this.room, data);
   }
 }

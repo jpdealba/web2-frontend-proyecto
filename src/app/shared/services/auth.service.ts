@@ -36,6 +36,25 @@ export class AuthService {
             this.signOut()
           }
         )
+      } else {
+
+        this.getTokenGoogle(token!).subscribe((data: any) => {
+          console.log(data)
+          if (data.isvalid == false) {
+            localStorage.setItem("user_id", "")
+            this.signOut()
+          } else {
+            this.setUser(data)
+            localStorage.setItem("user_id", data._id)
+            this.setIsLoggedIn(true)
+            this.onUser.emit(data);
+          }
+        },
+          (error: any) => {
+            localStorage.setItem("user_id", "")
+            this.signOut()
+          })
+
       }
     }
   }
