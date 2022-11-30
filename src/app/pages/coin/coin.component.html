@@ -13,14 +13,14 @@
   <form [formGroup]="tradeForm" (submit)="trade()">
     <mat-form-field>
       <mat-label>How Much</mat-label>
-      <input matInput type="number" formControlName="qty" autocomplete="off" (change)="updateSelected()" [(ngModel)]="qty" >
+      <input id="qty" matInput type="number" formControlName="qty" autocomplete="off" (change)="updateSelected()" [(ngModel)]="qty" >
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>From</mat-label>
-      <select matNativeControl [(ngModel)]="selected" name="from" formControlName="from" (change)="updateSelected()">
+      <select matNativeControl [(ngModel)]="selected" name="from" formControlName="from" (change)="updateSelected()" id="coin">
         <option value=-1 selected></option>
         <ng-container *ngFor="let bal of balance; let i = index">
-          <option *ngIf="bal.symbol != coin.symbol" [attr.data-index]="i" [value]="i">
+          <option *ngIf="bal.symbol != coin.symbol" [attr.data-index]="i" [value]="i" [id]="i">
             {{bal.symbol.toUpperCase()}} - Balance: {{bal.qty}}
           </option>
         </ng-container>
@@ -42,7 +42,7 @@
     </mat-form-field>
 
     <div class="botones">
-      <button class="login" [disabled]="tradeForm.invalid">Swap</button>
+      <button class="login" id="swap" [disabled]="tradeForm.invalid">Swap</button>
     </div>
   </form>
 </div>
