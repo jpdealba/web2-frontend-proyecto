@@ -93,8 +93,8 @@ export class CoinComponent implements OnInit {
           symbol_to: datos.to.symbol,
           qty_from: datos.qty,
           qty_to: this.qtyTo,
-
         })
+        location.reload()
       }).catch(err => alert(err))
     }
   }
