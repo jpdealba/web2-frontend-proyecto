@@ -80,12 +80,12 @@ export class CoinComponent implements OnInit {
         qty: datos.qty
       }).then(res => {
         // this.socketService.connect()
-        // this.socketService.sendTransaction({
-        //   user_id: datos.user._id,
-        //   symbol_from: this.balance[this.selected].symbol,
-        //   symbol_to: datos.to.symbol,
-        //   qty: datos.qty
-        // })
+        this.socketService.sendTransaction({
+          user_id: datos.user._id,
+          symbol_from: this.balance[this.selected].symbol,
+          symbol_to: datos.to.symbol,
+          qty: datos.qty
+        })
         // location.reload();
       }).catch(err => alert(err))
     }

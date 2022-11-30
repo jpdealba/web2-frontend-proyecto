@@ -25,15 +25,17 @@ export class SocketService {
   }
 
   subscribeToChanges(): void {
-    this.socket.on("transaction-case", (data: any) => {
-      console.log("transaction-case")
-      console.log(data)
-    });
+    // this.socket.on("transaction-case", (data: any) => {
+    //   console.log("transaction-case")
+    //   console.log(data)
+    // });
+    this.socket.fromEvent("transaction-case")
+      .subscribe((e: any) => {
+        console.log(e);
+      });
   }
 
   sendTransaction(data: any) {
-    console.log(this.socket)
-    console.log(this.room)
     this.socket.emit('transaction-case', this.room, data);
   }
 }
