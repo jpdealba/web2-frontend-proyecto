@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   setUser(user: any) {
-    this.user = { ...user }
+    this.user = { ...user, photo_url: user.photo_url.includes("https://") ? user.photo_url : this.url + "/api/users/image/" + user._id }
     localStorage.setItem("user_id", user._id)
 
   }
