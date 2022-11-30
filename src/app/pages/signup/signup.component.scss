@@ -91,3 +91,46 @@ h1 {
   font-weight: 700;
   margin-bottom: 40px;
 }
+
+
+
+@media (max-width: 765px) {
+  .banner_image{
+    width: 90%;
+    height:30vh;
+  }
+  .div-login{
+    width: 90%;
+  }
+  .section{
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: -15px;
+  }
+
+  button {
+    margin: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .banner_image{
+    width: 90%;
+    height:25vh;
+  }
+  .div-login{
+    width: 90%;
+  }
+  p{
+    font-size: 10px;
+    margin: -10px;
+  }
+  .section{
+    flex-direction: column;
+    margin-bottom: 10%;
+  }
+  
+}
