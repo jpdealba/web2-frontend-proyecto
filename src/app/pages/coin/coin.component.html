@@ -1,68 +1,149 @@
 
-<div *ngIf="coin">
-  <h1>Coin: {{coin.name}}</h1>
-  <p>Current Price: ${{coin.current_price}}</p>
-  <p>Image: {{coin.image}}</p>
-  <p>Low 24h: ${{coin.low_24h}}</p>
-  <p>High 24h: ${{coin.high_24h}}</p>
-  <p>Price Change Percentage 24h: {{coin.price_change_percentage_24h}}%</p>
-  <p>Market Cap: ${{coin.market_cap}}</p>
-  <p>Circulating Supply: {{coin.circulating_supply}}</p>
-</div>
-<div *ngIf="this.authService.isLoggedIn()">
-  <form [formGroup]="tradeForm" (submit)="trade()">
-    <mat-form-field>
-      <mat-label>How Much</mat-label>
-      <input id="qty" matInput type="number" formControlName="qty" autocomplete="off" (change)="updateSelected()" [(ngModel)]="qty" >
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>From</mat-label>
-      <select matNativeControl [(ngModel)]="selected" name="from" formControlName="from" (change)="updateSelected()" id="coin">
-        <option value=-1 selected></option>
-        <ng-container *ngFor="let bal of balance; let i = index">
-          <option *ngIf="bal.symbol != coin.symbol" [attr.data-index]="i" [value]="i" [id]="i">
-            {{bal.symbol.toUpperCase()}} - Balance: {{bal.qty}}
-          </option>
-        </ng-container>
+<div class="banner" *ngIf="coin">
 
-
-      </select>
-    </mat-form-field>
-    <br>
-
-    <mat-form-field>
-      <mat-label>To</mat-label>
-      <input matInput type="number" formControlName="qtyTo" [disabled]="true">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>To</mat-label>
-      <select matNativeControl disabled="true" >
-        <option [value]="coin.symbol.toUpperCase()">{{coin.symbol.toUpperCase()}}</option>
-      </select>
-    </mat-form-field>
-
-    <div class="botones">
-      <button class="login" id="swap" [disabled]="tradeForm.invalid">Swap</button>
+    <div class="title" style="display: flex; margin-bottom: 3%">
+      <h1 style="text-align: center; width:min-content; margin-right: 5%; font-weight: 600;">
+        <img id="image-logo" src={{coin.image}} alt="" width="100%" height="auto">
+        {{coin.name}}
+      </h1>
     </div>
-  </form>
-</div>
+    <div class="data">
+      <div style="display: flex; " >
+        <h2 style="margin-right: 10px;"> ${{coin.current_price | number:'0.1-8'}}</h2>
+        <h2 [ngClass]="{'positive' : coin.price_change_percentage_24h > 0, 'negative' : coin.price_change_percentage_24h < 0 }">
+          {{
+            coin.price_change_percentage_24h > 0 ?
+            "↑" : "↓"
+          }}
+          {{coin.price_change_percentage_24h/100 | percent:'0.2'}}
+        </h2>
+      </div>
+      <div style="display: flex;">
+        <h3 style="margin-right: 1px; font-weight: 500; color: red;">Low: </h3>
+        <h3 style="margin-left: 1px; font-weight: 500; word-wrap: break-word;">${{coin.low_24h | number:'0.1-8'}}</h3>
+      </div>
+      <div style="display: flex;">
+        <h3 style="font-weight: 500;color: green;">High: </h3>
+        <h3 style="margin-left: 1px; font-weight: 500; word-wrap: break-word;">${{coin.high_24h | number:'0.1-8'}}</h3>
+      </div>
+      <div style="display: flex;">
+        <h3 style="margin-right: 10px; font-weight: 500; color: goldenrod;">Market Cap: </h3>
+        <h3 style="margin-left: 1px; font-weight: 500; word-wrap: break-word;">{{coin.market_cap | currency}}</h3>
+      </div>
+      <div style="display: flex;">
+        <h3 style="margin-right: 10px; font-weight: 500; color: goldenrod;">Circulating Supply: </h3>
+        <h3 style="margin-left: 1px; font-weight: 500; word-wrap: break-word;">{{coin.circulating_supply | number}}</h3>
+      </div>
+    </div>
+
+  </div>
 
 <div>
-  <h2>Transactions</h2>
-    <div class="grid-container">
-      <p class="grid-item">Account</p>
-      <p class="grid-item">From</p>
-      <p class="grid-item">Quantity</p>
-      <p class="grid-item">To</p>
-      <p class="grid-item">Quantity</p>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <h1 style="color: goldenrod;">Trade</h1>
+    <div *ngIf="this.authService.isLoggedIn()">
+      <form [formGroup]="tradeForm" (submit)="trade()">
+        <mat-form-field>
+          <mat-label>How Much</mat-label>
+          <input id="qty" matInput type="number" formControlName="qty" autocomplete="off" (change)="updateSelected()"
+            [(ngModel)]="qty">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>From</mat-label>
+          <select matNativeControl [(ngModel)]="selected" name="from" formControlName="from" (change)="updateSelected()"
+            id="coin">
+            <option value=-1 selected></option>
+            <ng-container *ngFor="let bal of balance; let i = index">
+              <option *ngIf="bal.symbol != coin.symbol" [attr.data-index]="i" [value]="i" [id]="i">
+                {{bal.symbol.toUpperCase()}} - Balance: {{bal.qty}}
+              </option>
+            </ng-container>
+
+
+          </select>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field>
+          <mat-label>To</mat-label>
+          <input matInput type="number" formControlName="qtyTo" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>To</mat-label>
+          <select matNativeControl disabled="true">
+            <option [value]="coin.symbol.toUpperCase()">{{coin.symbol.toUpperCase()}}</option>
+          </select>
+        </mat-form-field>
+
+        <div
+         style="align-items: center; display: flex; flex-direction: column;">
+          <button mat-flat-button color="success" id="swap"
+          [disabled]="tradeForm.invalid" >Trade</button>
+        </div>
+      </form>
     </div>
-    <div *ngFor="let transaction of transactions; index as i" class="grid-container">
-      <div class="grid-item">{{transaction.user_id}}</div>
-      <div class="grid-item">{{transaction.symbol_from}}</div>
-      <div class="grid-item">{{transaction.qty_from}}</div>
-      <div class="grid-item">{{transaction.symbol_to}}</div>
-      <div class="grid-item">{{transaction.qty_to}}</div>
+  </div>
+  <h1 style="color: transparent;">Trade</h1>
+<div class="desktop" style="margin:auto; width: 80%; ">
+  <h1 style="color: goldenrod;">Transactions</h1>
+  <ul class="titles">
+    <div class="title" style="width: 18%; text-align: 'center';"> Wallet </div>
+    <div class="title" style="width: 10%; text-align: 'right'; "> From </div>
+    <div class="title" style="width: 20%; text-align: 'center'; "> Quantity </div>
+    <div class="title" style="width: 10%; text-align: 'left'; "> To </div>
+    <div class="title" style="width: 20%; text-align: 'center'; "> Quantity </div>
+    <div class="title" style="width: 20%; text-align: 'center';"> Date </div>
+  </ul>
+  <ul *ngFor="let transaction of transactions; index as i">
+    <div style="width: 18%; text-align: 'left'; word-wrap: break-word; ">{{transaction.user_id}}</div>
+    <div style="width: 10%; text-align: 'right';font-weight: bold; word-wrap: break-word; "> <a
+        [routerLink]="'/coin/'+transaction.symbol_from">{{ (transaction.symbol_from.length <4)? (transaction.symbol_from
+          | uppercase)+'':(transaction.symbol_from | uppercase) }} </a>
     </div>
-    <!-- </div> -->
+    <div style="width: 20%; text-align: 'center'; word-wrap: break-word;"> {{transaction.qty_from}}</div>
+    <div style="width: 10%; text-align: 'left';font-weight: bold; word-wrap: break-word;"> <a [routerLink]="'/coin/'+transaction.symbol_to">
+        {{ (transaction.symbol_to.length<4)? (transaction.symbol_to | uppercase)+'':(transaction.symbol_to | uppercase)
+          }} </a>
+    </div>
+    <div style="width: 20%; text-align: 'center'; word-wrap: break-word;"> {{transaction.qty_to | number:'0.1-8'}} </div>
+    <div style="width: 20%; text-align: 'center'; word-wrap: break-word;">{{transaction.timestamp| date : 'dd.MM.yyyy → HH:mm'}}</div>
+  </ul>
+</div>
+
+<div class="mobile" style="width: 100%; ">
+  <h1 style="color: goldenrod;">Transactions</h1>
+  <ul class="titles">
+    <div class="title test" style="width: 30%; text-align: 'left'; word-wrap: break-word;"> Wallet </div>
+    <div class="title" style="width: 20%; text-align: 'left'; word-wrap: break-word;"> From </div>
+    <div class="title" style="width: 20%; text-align: 'left'; word-wrap: break-word;"> To </div>
+    <div class="title" style="width: 30%; text-align: 'center';  word-wrap: break-word;"> Date </div>
+  </ul>
+  <ul *ngFor="let transaction of transactions; index as i" >
+
+    <div class="test" style="width: 30%; text-align: 'left'; word-wrap: break-word; word-wrap: break-word;">
+      {{ (transaction.user_id.length>8)? (transaction.user_id | slice:0:8)+'...':(transaction.user_id) }}
+    </div>
+
+    <div style="width: 20%; text-align: 'left'; display: flex; flex-direction: column; word-wrap: break-word;">
+      <a [routerLink]="'/coin/'+transaction.symbol_from">{{
+        (transaction.symbol_from.length <4)? (transaction.symbol_from | uppercase)+'':(transaction.symbol_from |
+          uppercase) }}
+      </a>
+        {{transaction.qty_from}}
+    </div>
+    <!-- <div style="width: 30%; text-align: 'left'"> </div> -->
+
+    <div style="width: 20%; text-align: 'left'; word-wrap: break-word;">
+      <a [routerLink]="'/coin/'+transaction.symbol_to"> {{
+        (transaction.symbol_to.length<4)? (transaction.symbol_to | uppercase)+'':(transaction.symbol_to | uppercase) }}
+      </a> {{transaction.qty_to | number:'0.1-5' }}
+    </div>
+    <!-- <div style="width: 25%; text-align: 'left'"> </div> -->
+
+    <div style="width: 30%; text-align: 'right';  word-wrap: break-word;">{{transaction.timestamp| date : 'dd.MM.yyyy'}}</div>
+
+  </ul>
+</div>
+
 
 </div>

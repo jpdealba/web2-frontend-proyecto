@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import axios from 'axios';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BalanceService } from 'src/app/shared/services/balance.service';
@@ -30,7 +30,7 @@ export class CoinComponent implements OnInit {
   transactions: Array<any> = []
   _subscription: any;
 
-  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute,
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute,private router: Router,
     private transactionService: TransactionsService, private socketService: SocketService,
     private coinsService: CoinsService, private balanceService: BalanceService, private formBuilder: UntypedFormBuilder) {
     this.tradeForm = this.formBuilder.group({
@@ -51,6 +51,12 @@ export class CoinComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event: any) => {
+        if (!(event instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+    });
     this.user = this.authService.getUser()
     this.balanceService.getUserBalance(localStorage.getItem("user_id")!).then(res => {
       this.balance = res.data
