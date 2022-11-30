@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
+import { Component, ElementRef, OnInit, VERSION, ViewChild } from '@angular/core';
 import { toJpeg } from 'html-to-image';
 import { CoinsService } from 'src/app/shared/services/coins.service';
-import { ElementRef, VERSION } from '@angular/core';
 @Component({
   selector: 'app-generator',
   templateUrl: './generator.component.html',
@@ -21,7 +20,7 @@ export class GeneratorComponent implements OnInit {
     this.coinsService.setSymbol(symbol)
   }
 
-  public onClick(elementId: string): void { 
+  public onClick(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
 }
   Market() {
