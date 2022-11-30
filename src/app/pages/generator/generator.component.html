@@ -11,6 +11,6 @@
 </div>/ -->
 <div>
   <li *ngFor="let coin of coins; index as i">
-    <a (click)="selectCoin(coin.symbol)" [routerLink]="'/coin/'+coin.symbol">{{coin.name}}</a>
+    <a [id]="coin.symbol" (click)="selectCoin(coin.symbol)" [routerLink]="'/coin/'+coin.symbol">{{coin.name}}</a>
   </li>
 </div>

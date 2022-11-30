@@ -9,14 +9,14 @@
         <form [formGroup]="logInForm" (submit)="logUsuario()">
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email">
+            <input matInput id="email" type="email" #email formControlName="email">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password">
+            <input matInput id="password" type="password" #password formControlName="password">
           </mat-form-field>
           <div class="botones">
-            <button  class="login" [disabled]="logInForm.invalid">Login</button>
+            <button  class="login" #trigger id="trigger" [disabled]="logInForm.invalid">Login</button>
             <button type="button" class="cancel">Cancel</button>
           </div>
         </form>
