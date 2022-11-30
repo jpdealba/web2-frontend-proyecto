@@ -9,7 +9,7 @@
   <p>Market Cap: ${{coin.market_cap}}</p>
   <p>Circulating Supply: {{coin.circulating_supply}}</p>
 </div>
-<div *ngIf="user && user._id">
+<div *ngIf="this.authService.isLoggedIn()">
   <form [formGroup]="tradeForm" (submit)="trade()">
     <mat-form-field>
       <mat-label>How Much</mat-label>
