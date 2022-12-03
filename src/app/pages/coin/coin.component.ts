@@ -45,7 +45,6 @@ export class CoinComponent implements OnInit {
       from: ['', [Validators.required, Validators.minLength(1)]],
     })
     this._subscription = socketService.addTransaction.subscribe((data) => {
-      console.log(data);
       this.transactions = [data].concat(this.transactions)
     });
   }
