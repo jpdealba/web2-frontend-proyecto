@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angu
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BalanceService } from 'src/app/shared/services/balance.service';
+import { CoinsService } from 'src/app/shared/services/coins.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 import { environment } from 'src/environments/environment';
 
@@ -12,12 +13,20 @@ import { environment } from 'src/environments/environment';
 })
 export class ProfileComponent implements OnInit, OnChanges {
   user: any;
-  balance: any;
+  balance = [
+    {
+      qty: "",
+      symbol: "",
+      current_price: null
+    }
+  ];
   transactions: any;
   loading = true;
+  coins = []
   // userImage: any;
   url = `${environment.apiUrl}/users/image`;
-  constructor(router: Router, private authService: AuthService, private transactionService: TransactionsService,
+  constructor(router: Router, private authService: AuthService,
+    private transactionService: TransactionsService, private coinsService: CoinsService,
     private balanceService: BalanceService) { }
   ngOnChanges(changes: SimpleChanges): void {
     throw new Error('Method not implemented.');
@@ -25,11 +34,11 @@ export class ProfileComponent implements OnInit, OnChanges {
 
  ngOnInit(): void {
    this.user = this.authService.getUser()
-  //  this.user && this.userImage = this.user.photo_url.includes("https://") ? this.user.photo_url : this.url + "/" + this.user._id
     this.balanceService.getUserBalance(localStorage.getItem("user_id")!).then(res => {
       this.balance = res.data
       this.transactionService.getTransactionsUser(localStorage.getItem("user_id")!).then(res => {
         this.transactions = res.data
+        this.coinsService.getCoins().then(res => this.coins = res.data)
         this.loading = false
       })
     })
@@ -42,13 +51,12 @@ export class ProfileComponent implements OnInit, OnChanges {
           this.balance = res.data
           this.transactionService.getTransactionsUser(this.user._id).then(res => {
             this.transactions = res.data
+            this.coinsService.getCoins().then(res => this.coins = res.data)
             this.loading = false
           })
         })
       }
     );
-  }
-
-
+ }
 
 }

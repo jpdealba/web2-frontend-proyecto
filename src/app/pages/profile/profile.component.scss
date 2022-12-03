@@ -116,12 +116,18 @@ a{
     height: auto;
     margin-bottom: 20%;
   }
-  .balanz {
+  hr {
     width: 100%;
-    height: auto;
-
+  }
+  .balanz {
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
     ol{
-      width: 100%;
+      width: 80%;
       margin-left: 0%;
       font-size: 15px;
     }

@@ -47,12 +47,12 @@
       <form [formGroup]="tradeForm" (submit)="trade()">
         <mat-form-field>
           <mat-label>How Much</mat-label>
-          <input id="qty" matInput type="number" formControlName="qty" autocomplete="off" (change)="updateSelected()"
+          <input id="qty" matInput type="number" formControlName="qty" autocomplete="off" (keyup)="updateSelected()"
             [(ngModel)]="qty">
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>From</mat-label>
-          <select matNativeControl [(ngModel)]="selected" name="from" formControlName="from" (change)="updateSelected()"
+          <select matNativeControl [(ngModel)]="selected" name="from" formControlName="from" (keyup)="updateSelected()"
             id="coin">
             <option value=-1 selected></option>
             <ng-container *ngFor="let bal of balance; let i = index">

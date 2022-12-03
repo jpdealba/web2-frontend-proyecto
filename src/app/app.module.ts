@@ -8,8 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FileUploadComponent } from './layout/file-upload/file-upload.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { LoadingComponent } from './layout/loading/loading.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MaterialModule } from './modules/material/material.module';
 import { CoinComponent } from './pages/coin/coin.component';
@@ -19,9 +21,8 @@ import { GeneratorComponent } from './pages/generator/generator.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { CoinPricePipe } from './shared/pipes/coin-price.pipe';
 import { NlToBrPipe } from './shared/pipes/nl-to-br.pipe';
-import { FileUploadComponent } from './layout/file-upload/file-upload.component';
-import { LoadingComponent } from './layout/loading/loading.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { LoadingComponent } from './layout/loading/loading.component';
     CoinComponent,
     FileUploadComponent,
     LoadingComponent,
+    CoinPricePipe
   ],
   imports: [
     BrowserModule,

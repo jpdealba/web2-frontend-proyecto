@@ -6,9 +6,12 @@
     <div class="left_section">
       <a>
         <img *ngIf="user" src={{user.photo_url}} alt="">
-        <app-file-upload></app-file-upload>
+        <app-file-upload *ngIf="this.user.method == 'email'"></app-file-upload>
       </a>
-      <p *ngIf="user" style="font-weight:bold ;"> {{user.username}}</p>
+      <p *ngIf="user" style="font-weight:bold;"
+        [ngStyle]="{'margin-top': (this.user.method != 'email') ? '10%' : '0%'}">
+        {{user.username}}
+      </p>
       <p *ngIf="user" style="font-size:18px ;">{{user.email}}</p>
       <p *ngIf="user" style="font-size:15px ;">Wallet:</p>
       <p *ngIf="user" style="font-size:15px ;">{{user._id}}</p>
@@ -17,10 +20,15 @@
       <h1 style="color: goldenrod;">Balance</h1>
       <hr>
       <ol>
-        <li *ngFor="let bal of balance; index as i">
-          {{bal.qty | number:'0.1-10'}}
-          <a [routerLink]="'/coin/'+bal.symbol">{{ (bal.symbol.length <4)? (bal.symbol | uppercase)+'':(bal.symbol |
-              uppercase) }} </a>
+        <li *ngFor="let bal of balance; index as i" style="width: 100%">
+          <div>
+            {{bal.qty | number:'0.1-10'}}
+            <a [routerLink]="'/coin/'+bal.symbol">{{ (bal.symbol.length <4)? (bal.symbol | uppercase)+'':(bal.symbol | uppercase) }}
+            </a>
+          </div>
+          <div>
+            {{ bal | coinPrice: this.coins}}
+          </div>
         </li>
       </ol>
     </div>
