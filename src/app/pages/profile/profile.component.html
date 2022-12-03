@@ -16,11 +16,12 @@
       <p *ngIf="user" style="font-size:15px ;">Wallet:</p>
       <p *ngIf="user" style="font-size:15px ;">{{user._id}}</p>
     </div>
+
     <div class="balanz">
       <h1 style="color: goldenrod;">Balance</h1>
       <hr>
       <ol>
-        <li *ngFor="let bal of balance; index as i" style="width: 100%">
+        <li *ngFor="let bal of balance; index as i" style="width: 90%;">
           <div>
             {{bal.qty | number:'0.1-10'}}
             <a [routerLink]="'/coin/'+bal.symbol">{{ (bal.symbol.length <4)? (bal.symbol | uppercase)+'':(bal.symbol | uppercase) }}
@@ -32,6 +33,7 @@
         </li>
       </ol>
     </div>
+
   </div>
   <div class="desktop" style="margin:auto; width: 80%;">
     <h1 style="color: goldenrod;">Transactions</h1>
@@ -42,7 +44,7 @@
       <div class="title" style="width: 30%; text-align: 'left'"> Quantity </div>
       <div class="title" style="width: 15%; text-align: 'right'"> Date </div>
     </ul>
-    <ul *ngFor="let transaction of transactions; index as i">
+    <ul *ngFor="let transaction of dataSource; index as i">
       <div style="width: 10%; text-align: 'left';font-weight: bold;"> <a
           [routerLink]="'/coin/'+transaction.symbol_from">{{ (transaction.symbol_from.length <4)? (transaction.symbol_from
             | uppercase)+'':(transaction.symbol_from | uppercase) }} </a>
@@ -64,7 +66,7 @@
       <div class="title" style="width: 30%; text-align: 'left'"> To </div>
       <div class="title" style="width: 20%; text-align: 'right'"> Date </div>
     </ul>
-    <ul *ngFor="let transaction of transactions; index as i">
+    <ul *ngFor="let transaction of dataSource; index as i">
       <div style="width: 10%; text-align: 'left'"> <a [routerLink]="'/coin/'+transaction.symbol_from">{{
           (transaction.symbol_from.length <4)? (transaction.symbol_from | uppercase)+'':(transaction.symbol_from |
             uppercase) }} </a> {{transaction.qty_from}}</div>
@@ -76,5 +78,9 @@
       <div style="width: 10%; text-align: 'left'">{{transaction.timestamp| date : 'dd.MM.yyyy'}}</div>
     </ul>
   </div>
-
+    <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+      [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+      [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+      aria-label="Select page">
+    </mat-paginator>
 </div>
