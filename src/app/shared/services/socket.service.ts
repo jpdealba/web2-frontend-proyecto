@@ -39,6 +39,6 @@ export class SocketService {
   }
 
   sendTransaction(data: any) {
-    this.socket.emit('transaction-case', this.room, data);
+    this.socket.emit('transaction-case', this.room, {...data, timestamp: new Date().toISOString()});
   }
 }
