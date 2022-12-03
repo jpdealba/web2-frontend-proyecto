@@ -22,6 +22,7 @@ export class CoinComponent implements OnInit {
   };
   balance: any;
   user: any;
+  loading = true;
   coins: any;
   tradeForm: UntypedFormGroup;
   selected: any = null;
@@ -33,6 +34,9 @@ export class CoinComponent implements OnInit {
   constructor(public authService: AuthService, private activatedRoute: ActivatedRoute,private router: Router,
     private transactionService: TransactionsService, private socketService: SocketService,
     private coinsService: CoinsService, private balanceService: BalanceService, private formBuilder: UntypedFormBuilder) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
     this.tradeForm = this.formBuilder.group({
       user: [{},[Validators.required]],
       to: [{},[Validators.required]],
@@ -41,8 +45,7 @@ export class CoinComponent implements OnInit {
       from: ['', [Validators.required, Validators.minLength(1)]],
     })
     this._subscription = socketService.addTransaction.subscribe((data) => {
-     console.log(data)
-      this.transactions.push(data)
+      [data].concat(this.transactions)
     });
   }
 
@@ -57,26 +60,33 @@ export class CoinComponent implements OnInit {
         }
         window.scrollTo(0, 0)
     });
+    this.getData().then(() =>       this.loading = false)
+  }
+
+  async getData() {
     this.user = this.authService.getUser()
-    this.balanceService.getUserBalance(localStorage.getItem("user_id")!).then(res => {
+    await this.balanceService.getUserBalance(localStorage.getItem("user_id")!).then(res => {
       this.balance = res.data
     })
+
     this.activatedRoute.params.subscribe((params) => {
       this.symbol = params["symbol"]
     })
-    this.coinsService.getCoin(this.symbol).then(res => {
+
+    await this.coinsService.getCoin(this.symbol).then(res => {
       this.coin = res.data
       this.socketService.connect()
       this.socketService.setRoom(res.data.symbol)
     })
-    this.coinsService.getCoins().then(res => this.coins = res.data)
-    this.transactionService.getTransactions(this.symbol).then(res => {
+
+    await this.coinsService.getCoins().then(res => this.coins = res.data)
+    await this.transactionService.getTransactions(this.symbol).then(res => {
       this.transactions = res.data
     }).catch(err => console.log(err))
     this.authService.onUser.subscribe(
-      (lang) => {
+      async (lang) => {
         this.user = this.authService.getUser();
-        this.balanceService.getUserBalance(this.user._id).then(res => {
+        await this.balanceService.getUserBalance(this.user._id).then(res => {
           this.balance = res.data
         })
       }

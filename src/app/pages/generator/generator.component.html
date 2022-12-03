@@ -1,55 +1,71 @@
+<app-loading *ngIf="loading"></app-loading>
+<div *ngIf="!loading">
+  <div class="banner">
+    <div class="banner_content">
+      <h1>Learn, buy & sell crypto easily</h1>
+      <p>Tamacoin is the easiest place to buy and sell cryptocurrency. Sign up and get started today.</p>
+      <a (click)="Market()" class="btn-action"><span>Start trading</span></a>
+    </div>
+    <div class="banner_image">
+      <img src="../assets/Tamacoin2.png" alt="">
+    </div>
+    <div class="home">
+      <span id="Market" style="visibility:hidden">.</span>
+      <h1 style="color: goldenrod; margin-bottom: 50px;">Market</h1>
 
-<div class="banner">
-  <div class="banner_content">
-    <h1>Learn, buy & sell crypto easily</h1>
-    <p>Tamacoin is the easiest place to buy and sell cryptocurrency. Sign up and get started today.</p>
-    <a (click)="Market()" class="btn-action"><span>Start trading</span></a>
-  </div>
-  <div class="banner_image">
-    <img src="../assets/Tamacoin2.png" alt="">
-  </div>
-<div class="home">
-  <span id="Market" style="visibility:hidden">.</span>
-  <h1 style="color: goldenrod; margin-bottom: 150px;" >Market</h1>
-  
-  <div class="desktop">
-    <ul>
-      <div class="title" style="width: 3.666%; text-align: 'left'"> # </div>
-      <div class="title" style="width: 16%; text-align: 'left'"> Name </div>
-      <div class="title" style="width: 13.666%; text-align: 'left'"> Symbol </div>
-      <div class="title" style="width: 13%; text-align: 'left'"> Last Price </div>
-      <div class="title" style="width: 13.666%; text-align: 'left'"> 24h + / -</div>
-      <div class="title" style="width: 13.666%; text-align: 'left'"> 24h % </div>
-      <div class="title" style="width: 16.666%; text-align: 'left'" > Market Cap </div>
-    </ul>
-    <ul *ngFor="let coin of coins; index as i" style="border-bottom: 1px solid black;">
-      <div style="width: 3%; text-align: 'left';font-weight: bold;" > {{coin.market_cap_rank}}</div>
-      <div style="width: 5%; text-align: 'center';font-weight: bold;" > <a [routerLink]="'/coin/'+coin.symbol"> <img src="{{coin.image}}" ></a></div>
-      <div style="width: 16.666%; text-align: 'left';font-weight: bold;" > <a [routerLink]="'/coin/'+coin.symbol">{{coin.name}} </a></div>
-      <div style="width: 16.666%; text-align: 'left';" > <a [routerLink]="'/coin/'+coin.symbol">{{coin.symbol | uppercase}} </a></div>
-      <div style="width: 16.666%; text-align: 'left';" > {{coin.current_price | currency}}</div>
-      <div style="width: 16.666%; text-align: 'left';font-weight: bold;" > {{coin.price_change_24h | currency}}</div>
-      <div [ngClass]="{'positive' : coin.price_change_percentage_24h > 0, 'negative' : coin.price_change_percentage_24h < 0 }" style="width: 16.666%; text-align: 'left';font-weight: bold;" > {{coin.price_change_percentage_24h/100 | percent:'0.2' }}</div>
-      <div style="width: 16.666%; text-align: 'left';" > {{coin.market_cap | currency}}</div>
-      <div class="trd" style="width: 16.666%; text-align: 'right'; margin-bottom: 15px; " ><a class="btn-action" [routerLink]="'/coin/'+coin.symbol"><span>Trade</span></a></div>
-    </ul >
-    
-  </div>
-  <div class="mobile">
-    <ul>
-      <div class="title test" style="width: 10%; text-align: 'left'"> # </div>
-      <div class="title" style="width: 25%; text-align: 'left'"> Name </div>
-      <div class="title" style="width: 33%; text-align: 'left'"> Last Price </div>
-      <div class="title" style="width: 30%; text-align: 'left'"> 24h % </div>
-    </ul>
-    <ul *ngFor="let coin of coins; index as i" style="border-bottom: 1px solid black;">
-      <div class="test" style="width: 10%; text-align: 'left';font-weight: bold;" > {{coin.market_cap_rank}}</div>
-      <div style="width: 13%; text-align: 'center';font-weight: bold;" > <a [routerLink]="'/coin/'+coin.symbol"> <img src="{{coin.image}}" ></a></div>
-      <div style="width: 25%; text-align: 'left';font-weight: bold;" > <a [routerLink]="'/coin/'+coin.symbol">{{coin.symbol | uppercase}} </a></div>
-      <div style="width: 47%; text-align: 'left';" > {{coin.current_price | currency}}</div>
-      <div [ngClass]="{'positive' : coin.price_change_percentage_24h > 0, 'negative' : coin.price_change_percentage_24h < 0 }" style="width: 30%; text-align: 'left';font-weight: bold;" > {{coin.price_change_percentage_24h/100 | percent:'0.2' }}</div>
-      <div class="trd" style="width: 30%; text-align: 'right'; margin-bottom: 15px; " ><a class="btn-action" [routerLink]="'/coin/'+coin.symbol"><span>Trade</span></a></div>
-    </ul >
-    
-  </div>
+      <div class="desktop">
+        <ul>
+          <div class="title" style="width: 3.666%; text-align: 'left'"> # </div>
+          <div class="title" style="width: 16%; text-align: 'left'"> Name </div>
+          <div class="title" style="width: 13.666%; text-align: 'left'"> Symbol </div>
+          <div class="title" style="width: 13%; text-align: 'left'"> Last Price </div>
+          <div class="title" style="width: 13.666%; text-align: 'left'"> 24h + / -</div>
+          <div class="title" style="width: 13.666%; text-align: 'left'"> 24h % </div>
+          <div class="title" style="width: 16.666%; text-align: 'left'"> Market Cap </div>
+        </ul>
+        <ul *ngFor="let coin of coins; index as i" style="border-bottom: 1px solid black;">
+          <div style="width: 3%; text-align: 'left';font-weight: bold;"> {{coin.market_cap_rank}}</div>
+          <div style="width: 5%; text-align: 'center';font-weight: bold;"> <a [routerLink]="'/coin/'+coin.symbol"> <img
+                src="{{coin.image}}"></a></div>
+          <div style="width: 16.666%; text-align: 'left';font-weight: bold;"> <a
+              [routerLink]="'/coin/'+coin.symbol">{{coin.name}} </a></div>
+          <div style="width: 16.666%; text-align: 'left';"> <a [routerLink]="'/coin/'+coin.symbol">{{coin.symbol |
+              uppercase}} </a></div>
+          <div style="width: 16.666%; text-align: 'left';"> {{coin.current_price | currency}}</div>
+          <div style="width: 16.666%; text-align: 'left';font-weight: bold;"> {{coin.price_change_24h | currency}}</div>
+          <div
+            [ngClass]="{'positive' : coin.price_change_percentage_24h > 0, 'negative' : coin.price_change_percentage_24h < 0 }"
+            style="width: 16.666%; text-align: 'left';font-weight: bold;"> {{coin.price_change_percentage_24h/100 |
+            percent:'0.2' }}</div>
+          <div style="width: 16.666%; text-align: 'left';"> {{coin.market_cap | currency}}</div>
+          <div class="trd" style="width: 16.666%; text-align: 'right'; margin-bottom: 15px; "><a class="btn-action"
+              [routerLink]="'/coin/'+coin.symbol"><span>Trade</span></a></div>
+        </ul>
+
+      </div>
+      <div class="mobile">
+        <ul>
+          <div class="title test" style="width: 10%; text-align: 'left'"> # </div>
+          <div class="title" style="width: 25%; text-align: 'left'"> Name </div>
+          <div class="title" style="width: 33%; text-align: 'left'"> Last Price </div>
+          <div class="title" style="width: 30%; text-align: 'left'"> 24h % </div>
+        </ul>
+        <ul *ngFor="let coin of coins; index as i" style="border-bottom: 1px solid black;">
+          <div class="test" style="width: 10%; text-align: 'left';font-weight: bold;"> {{coin.market_cap_rank}}</div>
+          <div style="width: 13%; text-align: 'center';font-weight: bold;"> <a [routerLink]="'/coin/'+coin.symbol"> <img
+                src="{{coin.image}}"></a></div>
+          <div style="width: 25%; text-align: 'left';font-weight: bold;"> <a
+              [routerLink]="'/coin/'+coin.symbol">{{coin.symbol | uppercase}} </a></div>
+          <div style="width: 47%; text-align: 'left';"> {{coin.current_price | currency}}</div>
+          <div
+            [ngClass]="{'positive' : coin.price_change_percentage_24h > 0, 'negative' : coin.price_change_percentage_24h < 0 }"
+            style="width: 30%; text-align: 'left';font-weight: bold;"> {{coin.price_change_percentage_24h/100 |
+            percent:'0.2' }}</div>
+          <div class="trd" style="width: 30%; text-align: 'right'; margin-bottom: 15px; "><a class="btn-action"
+              [routerLink]="'/coin/'+coin.symbol"><span>Trade</span></a></div>
+        </ul>
+
+      </div>
+    </div>
+
 </div>

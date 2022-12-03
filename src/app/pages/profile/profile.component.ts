@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit, OnChanges {
   user: any;
   balance: any;
   transactions: any;
+  loading = true;
   // userImage: any;
   url = `${environment.apiUrl}/users/image`;
   constructor(router: Router, private authService: AuthService, private transactionService: TransactionsService,
@@ -27,21 +28,22 @@ export class ProfileComponent implements OnInit, OnChanges {
   //  this.user && this.userImage = this.user.photo_url.includes("https://") ? this.user.photo_url : this.url + "/" + this.user._id
     this.balanceService.getUserBalance(localStorage.getItem("user_id")!).then(res => {
       this.balance = res.data
+      this.transactionService.getTransactionsUser(localStorage.getItem("user_id")!).then(res => {
+        this.transactions = res.data
+        this.loading = false
+      })
     })
-   this.transactionService.getTransactionsUser(localStorage.getItem("user_id")!).then(res => {
-      this.transactions = res.data
-    })
+
     this.authService.onUser.subscribe(
       (lang) => {
         const user = this.authService.getUser();
-        // this.userImage = user.photo_url.includes("https://") ? user.photo_url : this.url + "/" + user._id
-        // console.log(this.userImage)
         this.user = user
         this.balanceService.getUserBalance(this.user._id).then(res => {
           this.balance = res.data
-        })
-        this.transactionService.getTransactionsUser(this.user._id).then(res => {
-          this.transactions = res.data
+          this.transactionService.getTransactionsUser(this.user._id).then(res => {
+            this.transactions = res.data
+            this.loading = false
+          })
         })
       }
     );

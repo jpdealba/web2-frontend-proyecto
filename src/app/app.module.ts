@@ -21,6 +21,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { NlToBrPipe } from './shared/pipes/nl-to-br.pipe';
 import { FileUploadComponent } from './layout/file-upload/file-upload.component';
+import { LoadingComponent } from './layout/loading/loading.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { FileUploadComponent } from './layout/file-upload/file-upload.component'
     GeneratorPrivateComponent,
     CoinComponent,
     FileUploadComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

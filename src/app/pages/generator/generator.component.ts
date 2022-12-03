@@ -9,10 +9,12 @@ import { CoinsService } from 'src/app/shared/services/coins.service';
 })
 export class GeneratorComponent implements OnInit {
   coins: Array<any> = []
+  loading = true;
   constructor(private coinsService: CoinsService,private viewportScroller: ViewportScroller){}
   ngOnInit() {
     this.coinsService.getCoins().then(res => {
       this.coins = res.data
+      this.loading = false
     })
   }
 
@@ -22,7 +24,8 @@ export class GeneratorComponent implements OnInit {
 
   public onClick(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
-}
+  }
+
   Market() {
   document.getElementById("Market")!.scrollIntoView({behavior: "smooth"});
 }
