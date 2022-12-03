@@ -147,7 +147,11 @@
       <!-- <div style="width: 25%; text-align: 'left'"> </div> -->
 
       <div style="width: 30%; text-align: 'right';  word-wrap: break-word;">{{transaction.timestamp| date : 'dd.MM.yyyy'}}</div>
-
     </ul>
+      <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+        [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+        aria-label="Select page">
+      </mat-paginator>
   </div>
 </div>

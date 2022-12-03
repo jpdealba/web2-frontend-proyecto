@@ -119,6 +119,7 @@ export class CoinComponent implements OnInit {
     await this.coinsService.getCoins().then(res => this.coins = res.data)
     await this.transactionService.getTransactions(this.symbol).then(res => {
       this.transactions = res.data
+      this.length = res.data.length
       this.iterator();
     }).catch(err => console.log(err))
     this.authService.onUser.subscribe(

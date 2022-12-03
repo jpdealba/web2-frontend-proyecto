@@ -23,7 +23,7 @@
           <div class="title" style="width: 13.666%; text-align: 'left'"> 24h % </div>
           <div class="title" style="width: 16.666%; text-align: 'left'"> Market Cap </div>
         </ul>
-        <ul *ngFor="let coin of coins; index as i" style="border-bottom: 1px solid black;">
+        <ul *ngFor="let coin of dataSource; index as i" style="border-bottom: 1px solid black;">
           <div style="width: 3%; text-align: 'left';font-weight: bold;"> {{coin.market_cap_rank}}</div>
           <div style="width: 5%; text-align: 'center';font-weight: bold;"> <a [routerLink]="'/coin/'+coin.symbol"> <img
                 src="{{coin.image}}"></a></div>
@@ -50,7 +50,7 @@
           <div class="title" style="width: 33%; text-align: 'left'"> Last Price </div>
           <div class="title" style="width: 30%; text-align: 'left'"> 24h % </div>
         </ul>
-        <ul *ngFor="let coin of coins; index as i" style="border-bottom: 1px solid black;">
+        <ul *ngFor="let coin of dataSource; index as i" style="border-bottom: 1px solid black;">
           <div class="test" style="width: 10%; text-align: 'left';font-weight: bold;"> {{coin.market_cap_rank}}</div>
           <div style="width: 13%; text-align: 'center';font-weight: bold;"> <a [routerLink]="'/coin/'+coin.symbol"> <img
                 src="{{coin.image}}"></a></div>
@@ -67,5 +67,9 @@
 
       </div>
     </div>
-
+  <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+    [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+    aria-label="Select page">
+  </mat-paginator>
 </div>
