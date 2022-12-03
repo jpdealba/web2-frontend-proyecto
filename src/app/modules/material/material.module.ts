@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [],
   imports: [
@@ -26,7 +27,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSidenavModule,
     MatSelectModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule { }

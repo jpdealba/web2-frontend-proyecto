@@ -47,8 +47,8 @@ h1{
 }
 
 img{
-    width: auto;
-    height: 60vh;
+    width: 350px;
+    height: 350px;
 }
 
 ul {
@@ -121,7 +121,10 @@ div > button{
     .test{
         margin-left: -30px;
     }
-
+        img {
+          width: 250px;
+          height: 250px;
+        }
 
 }
 
@@ -137,6 +140,10 @@ div > button{
 
     .banner{
         padding: 20px 0px;
+    }
+    img {
+      width: 200px;
+      height: 200px;
     }
 
 }

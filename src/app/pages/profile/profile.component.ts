@@ -1,3 +1,4 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -43,7 +44,7 @@ export class ProfileComponent implements OnInit, OnChanges {
   url = `${environment.apiUrl}/users/image`;
   constructor(router: Router, private authService: AuthService,
     private transactionService: TransactionsService, private coinsService: CoinsService,
-    private balanceService: BalanceService) { }
+    private balanceService: BalanceService, private clipboard: Clipboard) { }
   ngOnChanges(changes: SimpleChanges): void {
     throw new Error('Method not implemented.');
   }
@@ -98,6 +99,10 @@ export class ProfileComponent implements OnInit, OnChanges {
     const start = this.pageIndex * this.pageSize;
     const part = this.transactions.slice(start, end);
     this.dataSource = part;
+  }
+
+  copyID() {
+    this.clipboard.copy(this.user._id);
   }
 
 }

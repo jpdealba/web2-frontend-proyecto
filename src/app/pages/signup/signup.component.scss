@@ -1,9 +1,9 @@
 .section {
   display: flex;
   width: 100%;
-  min-height: 80%;
-  position: fixed;
-  overflow-y: scroll;
+  min-height: 90vh;
+  // position: fixed;
+  // overflow-y: scroll;
 }
 
 .banner_image {
@@ -132,5 +132,5 @@ h1 {
     flex-direction: column;
     margin-bottom: 10%;
   }
-  
+
 }

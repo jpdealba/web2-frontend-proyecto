@@ -14,7 +14,17 @@
       </p>
       <p *ngIf="user" style="font-size:18px ;">{{user.email}}</p>
       <p *ngIf="user" style="font-size:15px ;">Wallet:</p>
-      <p *ngIf="user" style="font-size:15px ;">{{user._id}}</p>
+      <div style="display: flex; justify-content: center;">
+        <p *ngIf="user" style="font-size:15px ;">{{user._id}}   </p>
+        <span
+          class="material-symbols-outlined" (click)="copyID()" style="cursor: pointer;"
+          matTooltip="Copied!" (mouseenter)="$event.stopImmediatePropagation()"
+          (mouseleave)="$event.stopImmediatePropagation()" #tooltip="matTooltip" (click)="tooltip.toggle()" (click)="copyID()"
+          style="cursor: pointer;">
+          content_copy
+        </span>
+      </div>
+
     </div>
 
     <div class="balanz">

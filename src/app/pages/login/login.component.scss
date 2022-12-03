@@ -1,17 +1,17 @@
 .section{
   display: flex;
   width: 100%;
-  min-height: 80%;
-  position: fixed;
+  height: 90vh;
   //overflow-y:scroll;
   flex-direction: row;
+  justify-content: center;
 }
 .banner_image{
   width: 50%;
   align-items: center;
   justify-content: center;
   display: flex;
-  height:75vh;
+  // height:75vh;
 }
 img{
   width: 80%;
@@ -122,5 +122,5 @@ h1{
     flex-direction: column;
     margin-bottom: 10%;
   }
-  
+
 }
