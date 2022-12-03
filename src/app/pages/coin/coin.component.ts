@@ -1,6 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import axios from 'axios';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -30,6 +31,19 @@ export class CoinComponent implements OnInit {
   qtyTo: number = 0;
   transactions: Array<any> = []
   _subscription: any;
+  dataSource: any;
+
+  length = 50;
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  pageEvent: any;
 
   constructor(public authService: AuthService, private activatedRoute: ActivatedRoute,private router: Router,
     private transactionService: TransactionsService, private socketService: SocketService,
@@ -46,7 +60,30 @@ export class CoinComponent implements OnInit {
     })
     this._subscription = socketService.addTransaction.subscribe((data) => {
       this.transactions = [data].concat(this.transactions)
+      this.dataSource = [data].concat(this.dataSource)
+      this.dataSource.pop()
+      this.iterator()
     });
+  }
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.iterator();
+  }
+
+  private iterator() {
+    const end = (this.pageIndex + 1) * this.pageSize;
+    const start = this.pageIndex * this.pageSize;
+    const part = this.transactions.slice(start, end);
+    this.dataSource = part;
   }
 
   ngOnDestroy() {
@@ -82,6 +119,7 @@ export class CoinComponent implements OnInit {
     await this.coinsService.getCoins().then(res => this.coins = res.data)
     await this.transactionService.getTransactions(this.symbol).then(res => {
       this.transactions = res.data
+      this.iterator();
     }).catch(err => console.log(err))
     this.authService.onUser.subscribe(
       async (lang) => {
