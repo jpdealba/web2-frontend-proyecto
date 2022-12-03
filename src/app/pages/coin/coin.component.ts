@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -39,10 +39,10 @@ export class CoinComponent implements OnInit {
     };
     this.tradeForm = this.formBuilder.group({
       user: [{},[Validators.required]],
-      to: [{},[Validators.required]],
+      to: [{ disabled: true},[Validators.required]],
       qty: [0.00, [Validators.required, Validators.min(0.001)]],
       qtyTo: [{ value: this.qtyTo, disabled: true }, [Validators.required, Validators.min(0.0001)]],
-      from: ['', [Validators.required, Validators.minLength(1)]],
+      from: ['', [Validators.required, Validators.min(0)]],
     })
     this._subscription = socketService.addTransaction.subscribe((data) => {
       this.transactions = [data].concat(this.transactions)
@@ -60,7 +60,7 @@ export class CoinComponent implements OnInit {
         }
         window.scrollTo(0, 0)
     });
-    this.getData().then(() =>       this.loading = false)
+    this.getData().then(() =>  this.loading = false)
   }
 
   async getData() {
@@ -116,21 +116,21 @@ export class CoinComponent implements OnInit {
   }
 
   updateSelected() {
+    this.tradeForm.controls['to'].setValue(this.coin);
+    this.tradeForm.controls['user'].setValue({...this.user, _id: localStorage.getItem("user_id")});
     const selectedBalance = this.balance[this.selected]
-    console.log(typeof(selectedBalance.qty))
     this.tradeForm.controls.qty.setValidators([
       Validators.required,
       Validators.min(0.001),
       (control: AbstractControl) => (Validators.max(selectedBalance.qty))(control)
     ]);
-    const qtyToSpend = this.qty
+    const qtyToSpend = this.tradeForm.get("qty")?.getRawValue()
     const coinToPrice = this.coin.current_price
     const found = this.coins.find((coin: any) => coin.symbol == selectedBalance.symbol);
     const coinFromPrice = found.current_price
+
     this.qtyTo = ((qtyToSpend * coinFromPrice) / coinToPrice)
     this.tradeForm.controls['qtyTo'].setValue(this.qtyTo);
-    this.tradeForm.controls['to'].setValue(this.coin);
-    this.tradeForm.controls['user'].setValue(this.user);
     this.tradeForm.updateValueAndValidity()
   }
 
